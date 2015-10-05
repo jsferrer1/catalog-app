@@ -1,0 +1,89 @@
+{% extends "main.html" %}
+{% block content %}
+    <header id="header" class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <span class="navbar-brand" data-i18n="title">
+                    <a href="/" style="font-size: 20px">Catalog App</a>
+                </span>
+            </div>
+            <nav id="menu" class="navbar-collapse collapse" role="navigation">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="{{url_for('showLogin')}}">Login </a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+	<div class="row">
+		<div class="col-md-2">
+			<h4>Categories</h4>
+		</div>
+		<div class="col-md-10 text-left">
+			<h4>Latest Items</h4>
+		</div>
+	</div>
+
+	<div class = 'flash'>
+      {% with messages = get_flashed_messages() %}
+      {% if messages %}
+          
+        <ul>
+        {% for message in messages %}
+            <li> <strong> {{ message }} </strong> </li>
+        {% endfor %}
+        </ul>
+        {% endif %}
+    {% endwith %}
+
+    </div>
+	
+    <!--Display the categories & items -->
+    <div class="row">
+        <div class="col-md-2 list-group">
+            {% for category in categories %}
+            <a href="{{url_for('showItems', category_id = category.id)}}" class="list-group-item list-group-item-info">{{category.name}}</a>
+            {% endfor %}
+        </div>
+        <div class="col-md-10">
+            <table id="grid" class="table table-condensed table-hover table-striped" data-selection="true" data-multi-select="false" data-row-select="false" data-keep-selection="false">
+                <thead>
+                    <tr>
+                        <th data-column-id="item" data-align="left" data-header-align="center" data-width="50">Item</th>
+                        <th data-column-id="category" data-align="left" data-header-align="center" data-width="50">Category</th>
+                        <th data-column-id="photo" data-formatter="photo" data-align="center" data-header-align="center" data-sortable="false" data-width="50px">Photo</th>
+                        <th data-column-id="link" data-formatter="link" data-align="center" data-header-align="center" data-sortable="false" data-width="50px">Link</th>
+                        <th data-column-id="url_edit" data-visible="false">url_edit</th>
+                        <th data-column-id="url_delete" data-visible="false">url_delete</th>
+                        <th data-column-id="url_photo" data-width="0">url_photo</th>
+                        <th data-column-id="id" data-identifier="true" data-order="desc" data-visible="false">id</th>
+                        <th data-column-id="description" data-width="0">description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in items %}
+                    <tr>
+                        <td>{{item.CategoryItem.name}}</td>
+                        <td>{{item.Category.name}}</td>
+                        <td>photo</td>
+                        <td>link</td>
+                            <td>READ_ONLY</td>
+                            <td>READ_ONLY</td>
+                        <td>{{item.CategoryItem.picture}}</td>
+                        <td>{{item.CategoryItem.id}}</td>
+                        <td>{{item.CategoryItem.description}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
+    </div>
+    <!--</div>-->
+    
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+	
+	<div class="row">
+		<div class="col-md-2">
+			<h4>Categories</h4>
+		</div>
+		<div class="col-md-5 text-left">
+			<h4>&gt;&nbsp;{{category.name}}</h4>
+		</div>
+		<div class="col-md-5 text-right">
+			<h4><small>created by </small>{{creator.name}}</h4>
+		</div>
+	</div>
+    <!--Display the categories & items -->
+    <div class="row">
+        <div class="col-md-2 list-group">
+            {% for c in categories %}
+            <a href="{{url_for('showItems', category_id = c.id)}}" class="list-group-item list-group-item-info">{{c.name}}</a>
+            {% endfor %}
+        </div>
+        <div class="col-md-10">
+            <table id="grid" class="table table-condensed table-hover table-striped" data-selection="false" data-multi-select="false" data-row-select="false" data-keep-selection="false">
+                <thead>
+                    <tr>
+                        <th data-column-id="item" data-align="left" data-header-align="center" data-width="50">Item</th>
+                        <th data-column-id="category" data-width="0">category</th>
+                        <th data-column-id="photo" data-formatter="photo" data-align="center" data-header-align="center" data-sortable="false" data-width="50px">Photo</th>
+                        <th data-column-id="link" data-formatter="link" data-align="center" data-header-align="center" data-sortable="false" data-width="50px">Link</th>
+                        <th data-column-id="url_edit" data-visible="false">url_edit</th>
+                        <th data-column-id="url_delete" data-visible="false">url_delete</th>
+                        <th data-column-id="url_photo" data-width="0">url_photo</th>
+                        <th data-column-id="id" data-identifier="true" data-order="desc" data-visible="false">id</th>
+                        <th data-column-id="description" data-width="0" data-identifier="false">description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in items %}
+                    <tr>
+                        <td>{{item.name}}</td>
+                        <td>{{category.name}}</td>
+                        <td>photo</td>
+                        <td>link</td>
+                            <td>READ_ONLY</td>
+                            <td>READ_ONLY</td>
+                        <td>{{item.picture}}</td>
+                        <td>{{item.id}}</td>
+                        <td>{{item.description}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
+    </div>
+    <!--</div>-->
+    
+{% endblock %}
