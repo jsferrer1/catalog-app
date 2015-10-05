@@ -1,0 +1,25 @@
+    <header id="header" class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <span class="navbar-brand" data-i18n="title">
+                    <a href="/" style="font-size: 20px">Catalog App</a>
+                </span>
+            </div>
+            <nav id="menu" class="navbar-collapse collapse" role="navigation">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        {%if 'username' not in session %}
+                        <a href="{{url_for('showLogin')}}">Login </a>
+                        {% else %}
+                        <a href="{{url_for('disconnect')}}">Logout </a>
+                        {% endif %}
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
